@@ -1,0 +1,5 @@
+<%= render 'info.html.erb', movie: @movie %>
+
+<%= form_tag "/movies/#{@movie.id}", method: :delete do %>
+    <%= submit_tag 'Delete Movie' %>
+<% end %>
