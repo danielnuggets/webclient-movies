@@ -11,7 +11,7 @@ class Movie
   end
 
   def self.find(id)
-    movies_hash = Unirest.get("http://localhost:3000/api/v1/movies/#{id}").body
+    movies_hash = Unirest.get("http://localhost:3000/api/v1/movies/#{id}", headers: { 'Authorization' => 'Token token=icecream', 'X-User-Email' => 'vanilla@gmail.com' }).body
     movie = Movie.new(
       id: movies_hash['id'],
       title: movies_hash['title'],
@@ -24,7 +24,7 @@ class Movie
   end
 
   def self.all
-    movies_hash_array = Unirest.get('http://localhost:3000/api/v1/movies').body
+    movies_hash_array = Unirest.get('http://localhost:3000/api/v1/movies', headers: { 'Authorization' => 'Token token=icecream', 'X-User-Email' => 'vanilla@gmail.com' }).body
     movies = []
     movies_hash_array.each do |movies_hash|
       movies << Movie.new(
@@ -41,7 +41,7 @@ class Movie
 
   def self.create(opts)
     Unirest.post('http://localhost:3000/api/v1/movies', 
-      headers: { "Accept" => "application/json" },
+      headers: { "Accept" => "application/json", 'Authorization' => 'Token token=icecream', 'X-User-Email' => 'vanilla@gmail.com' },
       parameters: { 
         title: opts[:title], 
         duration: opts[:duration], 
@@ -52,7 +52,7 @@ class Movie
 
   def update(opts)
     movie = Unirest.patch("http://localhost:3000/api/v1/movies/#{id}", 
-      headers: { "Accept" => "application/json" },
+      headers: { "Accept" => "application/json", 'Authorization' => 'Token token=icecream', 'X-User-Email' => 'vanilla@gmail.com' },
       parameters: { 
         title: opts[:title], 
         duration: opts[:duration], 
@@ -62,6 +62,6 @@ class Movie
   end
 
   def destroy
-    Unirest.delete("http://localhost:3000/api/v1/movies/#{id}").body
+    Unirest.delete("http://localhost:3000/api/v1/movies/#{id}", headers: { 'Authorization' => 'Token token=icecream', 'X-User-Email' => 'vanilla@gmail.com' }).body
   end
 end
